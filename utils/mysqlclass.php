@@ -28,7 +28,7 @@
 		
 		function query($sql) {
 			$this->checkConn();
-			$stmt = $this->connection->query($sql);
+			$stmt = $this->get()->query($sql);
 			return $stmt;
 		}
 		
