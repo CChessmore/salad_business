@@ -14,7 +14,7 @@ if(isset($_POST['submit'])) {
     date_default_timezone_set('America/Chicago');
   //get values from input
     $email=$_POST['email'];
-    $password=$_POST['password'];
+    $password=password_hash($_POST['password'],PASSWORD_DEFAULT);
 
   // Check whether the user exist
     $db_email = $db->prepare("SELECT email FROM users WHERE email = ?");
@@ -23,8 +23,6 @@ if(isset($_POST['submit'])) {
         $email
     ));
     if($db_email->rowCount() == 0) {
-        echo "This email has already registered.";
-    } else {
         // insert data
         $stmt = $db->prepare("
         INSERT INTO users (email, password) VALUES (:email, :password)
@@ -35,8 +33,10 @@ if(isset($_POST['submit'])) {
             ':password'=>$password
         ));
         echo "<p>Sign up successfully</p>";
+        
+    } else {
+        echo "This email has already registered.";
     }
-
 } 
 ?>
 <form action="" method="post">
