@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <?php 
 	require_once('mysqlclass.php');
@@ -32,6 +32,7 @@
 			$user = $rowCount->fetch();
 			if(password_verify($_POST['password'],$user['password'])) {
 				echo("Valid info. Signing in.");
+				session_start();
 			}
 			else {
 				echo("Invalid password. Try again.");
