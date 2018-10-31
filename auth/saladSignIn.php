@@ -10,8 +10,8 @@
 <body>
 <div>
 	<div>
-		<form method='post' action='authenticate.php'>
-			Username: <input name='username' type='text'>
+		<form method='post'>
+			Username: <input name='email' type='text'>
 			Password:<input name='password' type='password'>
 			<button type='submit' name='login' value='0'>Log In</button>
 		</form>
@@ -22,8 +22,8 @@
 <?php
 	$SQL = new mySQL();
 	$SQL->connect('localhost','salad_business','root');
-	if(isset($_POST['password']) && isset($_POST['username'])) {
-		$rowCount = $SQL->select("SELECT email, password FROM users WHERE email=? VALUES (?)",[$_POST['email']]);
+	if(isset($_POST['password']) && isset($_POST['email'])) {
+		$rowCount = $SQL->select("SELECT email, password FROM users WHERE email=?",[$_POST['email']]);
 		if($rowCount->rowCount()==0) {
 			echo("Invalid email entered.");
 		}
