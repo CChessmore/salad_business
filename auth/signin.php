@@ -4,7 +4,8 @@
 	} ?>
 <!DOCTYPE html>
 <?php 
-	require_once($_SERVER['DOCUMENT_ROOT'].'/salad_business/utils/mysqlclass.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/salad_business/settings.php');
+	require_once(APP_PATH.'/utils/mysqlclass.php');
 ?>
 
 <html>
