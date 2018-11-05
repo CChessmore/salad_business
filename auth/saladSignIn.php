@@ -1,7 +1,10 @@
-<?php session_start(); ?>
+<?php session_start();
+	if (isset($_SESSION['userid'])) {
+		header('location: logged.php');
+	} ?>
 <!DOCTYPE html>
 <?php 
-	require_once('mysqlclass.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/salad_business/utils/mysqlclass.php');
 ?>
 
 <html>
@@ -23,7 +26,7 @@
 	$SQL = new mySQL();
 	$SQL->connect('localhost','salad_business','root');
 	if(isset($_POST['password']) && isset($_POST['email'])) {
-		$rowCount = $SQL->select("SELECT email, password FROM users WHERE email=?",[$_POST['email']]);
+		$rowCount = $SQL->select("SELECT id, email, password FROM users WHERE email=?",[$_POST['email']]);
 		if($rowCount->rowCount()==0) {
 			echo("Invalid email entered.");
 		}
@@ -32,7 +35,8 @@
 			$user = $rowCount->fetch();
 			if(password_verify($_POST['password'],$user['password'])) {
 				echo("Valid info. Signing in.");
-				session_start();
+				$_SESSION['userid'] = $user['id'];
+				header('location: logged.php');
 			}
 			else {
 				echo("Invalid password. Try again.");
