@@ -15,7 +15,7 @@
 			Password:<input name='password' type='password'>
 			<button type='submit' name='login' value='0'>Log In</button>
 		</form>
-	<div>
+	</div>
 </div>
 </body>
 </html>
